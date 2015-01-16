@@ -8,7 +8,7 @@ public class Crime {
 	private String mTilte;
 	private Date mDate;
 	private boolean mSolved;
-	
+	private String Tag;
 	public Crime(){
 		mId=UUID.randomUUID();
 		mDate=new Date();
