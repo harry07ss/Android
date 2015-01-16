@@ -12,7 +12,7 @@ public class CrimeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crime);
+        setContentView(R.layout.activity_fragment);
         
         FragmentManager fm =getFragmentManager(); //获得管理器
         Fragment fragment=fm.findFragmentById(R.id.fragmentContainer);//绑定到对应的容器中
