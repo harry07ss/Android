@@ -1,6 +1,7 @@
 package com.bit.criminalintent;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+
 
 public class CrimeListActivity extends SingleFragmentActivity {//第二个activity直接用抽象类
 
