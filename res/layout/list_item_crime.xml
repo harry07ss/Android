@@ -20,9 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/crime_list_item_sCheckBox"
         android:text="Crime title"
-        android:textStyle="bold" 
         android:paddingLeft="8dp"
-    	android:paddingRight="4dp"/>
+    	android:paddingRight="4dp"
+    	android:textSize="24sp"/>
     <TextView 
         android:id="@+id/crime_list_item_dateTextView"
         android:layout_width="match_parent"

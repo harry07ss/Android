@@ -4,21 +4,34 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import android.content.Context;
+import android.util.Log;
 
 public class CrimeLab {//Ä£ĞÍ²ã¶ÔÏóÀà£¬ÊÇCrimeÀàµÄÒ»¸ö¼¯ºÏ µ¥ÀıÖ»ÓĞÒ»¸ö¾²Ì¬¶ÔµÄÀà
+	private static final String TAG="CrimeLab";
+	private static final String FILENAME="Crimes.json";
+	
 	private ArrayList<Crime> mCrimes;//¶¨ÒåCrimeµÄListÈİÆ÷
+	private CriminalIntentJSONSerializer mSerializer;
+	
 	private static CrimeLab sCrimeLab; //µ¥ÀıµÄÓÃ·¨£¬¾²Ì¬Àà¶ÔÏó
 	private Context mAppContext;//ÀûÓÃÉÏÏÂÎÄ²ÎÊı¿ÉÒÔ¿ØÖÆactivity
 	
 	private CrimeLab(Context appContex){//µ¥ÀıÓÃ·¨£ºÄäÃû¹¹Ôìº¯Êı£¬»ñÈ¡ÉÏÏÂÎÄ
 		mAppContext=appContex;
-		mCrimes=new ArrayList<Crime>();
-		for(int i=0;i<100;i++){//Crime¶ÔÏóµÄ³õÊ¼»¯£¬¿ÉĞŞ¸Ä
+		//mCrimes=new ArrayList<Crime>();
+		try{
+			mCrimes=mSerializer.loadCrimes();
+			
+		}catch (Exception e){
+			mCrimes=new ArrayList<Crime>();
+			Log.e(TAG,"Error loading file:",e);
+		}
+		/*for(int i=0;i<100;i++){//Crime¶ÔÏóµÄ³õÊ¼»¯£¬¿ÉĞŞ¸Ä
 			Crime c =new Crime();
 			c.setTitle("Crime #"+i);
 			c.setSolved(i%2==0);
 			mCrimes.add(c);
-		}
+		}*/
 	}
 	public static CrimeLab get(Context c){//get·½·¨ÓÃÓÚ·µ»ØCrimeLabµ¥Àı£¬µ÷ÓÃÁËÄäÃû¹¹Ôìº¯Êı
 		if(sCrimeLab==null){
@@ -38,5 +51,20 @@ public class CrimeLab {//Ä£ĞÍ²ã¶ÔÏóÀà£¬ÊÇCrimeÀàµÄÒ»¸ö¼¯ºÏ µ¥ÀıÖ»ÓĞÒ»¸ö¾²Ì¬¶ÔµÄÀ
 		}
 		return null;
 	}
+	public void addCrime(Crime c){
+		mCrimes.add(c);
+	}
+	
+    public boolean saveCrimes() {
+        try {
+            mSerializer.saveCrimes(mCrimes);
+            Log.d(TAG, "crimes saved to file");
+            return true;
+        } catch (Exception e) {
+            Log.e(TAG, "Error saving crimes: " + e);
+            return false;
+        }
+    }
+	
 	
 }

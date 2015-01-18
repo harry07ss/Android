@@ -3,7 +3,15 @@ package com.bit.criminalintent;
 import java.util.Date;
 import java.util.UUID;
 
-public class Crime {//模型层对象的类
+import org.json.JSONException;
+import org.json.JSONObject;
+public class Crime {
+	//模型层对象的类
+    private static final String JSON_ID = "id";
+    private static final String JSON_TITLE = "title";
+    private static final String JSON_DATE = "date";
+    private static final String JSON_SOLVED = "solved";
+    
 	private UUID mId;//ID好
 	private String mTitle;//标题
 	private Date mDate;//日期
@@ -13,6 +21,22 @@ public class Crime {//模型层对象的类
 		mId=UUID.randomUUID();
 		mDate=new Date();
 	}
+	
+    public Crime(JSONObject json) throws JSONException {//读取
+        mId = UUID.fromString(json.getString(JSON_ID));
+        mTitle = json.getString(JSON_TITLE);
+        mSolved = json.getBoolean(JSON_SOLVED);
+        mDate = new Date(json.getLong(JSON_DATE));
+    }
+
+    public JSONObject toJSON() throws JSONException {//保存
+        JSONObject json = new JSONObject();
+        json.put(JSON_ID, mId.toString());
+        json.put(JSON_TITLE, mTitle);
+        json.put(JSON_DATE, mDate.getTime());
+        json.put(JSON_SOLVED, mSolved);
+        return json;
+    }
 	@Override
 	public String toString(){
 		return mTitle;
