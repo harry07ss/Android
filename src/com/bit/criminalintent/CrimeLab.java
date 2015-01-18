@@ -18,6 +18,7 @@ public class CrimeLab {//Ä£ĞÍ²ã¶ÔÏóÀà£¬ÊÇCrimeÀàµÄÒ»¸ö¼¯ºÏ µ¥ÀıÖ»ÓĞÒ»¸ö¾²Ì¬¶ÔµÄÀ
 	
 	private CrimeLab(Context appContex){//µ¥ÀıÓÃ·¨£ºÄäÃû¹¹Ôìº¯Êı£¬»ñÈ¡ÉÏÏÂÎÄ
 		mAppContext=appContex;
+		 mSerializer = new CriminalIntentJSONSerializer(mAppContext, FILENAME);
 		//mCrimes=new ArrayList<Crime>();
 		try{
 			mCrimes=mSerializer.loadCrimes();
@@ -54,7 +55,9 @@ public class CrimeLab {//Ä£ĞÍ²ã¶ÔÏóÀà£¬ÊÇCrimeÀàµÄÒ»¸ö¼¯ºÏ µ¥ÀıÖ»ÓĞÒ»¸ö¾²Ì¬¶ÔµÄÀ
 	public void addCrime(Crime c){
 		mCrimes.add(c);
 	}
-	
+	public void deleteCrime(Crime c){
+		mCrimes.remove(c);
+	}
     public boolean saveCrimes() {
         try {
             mSerializer.saveCrimes(mCrimes);
